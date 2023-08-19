@@ -9,6 +9,8 @@ import { PrismaService } from '../../databases/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { ValidateAssignorDto } from './dto/validate-assignor.dto';
 
+import { env } from '../../env';
+
 @Injectable()
 export class AssignorService {
   constructor(private ORM: PrismaService) {}
@@ -103,7 +105,7 @@ export class AssignorService {
     try {
       const hashedPassword = await bcrypt.hash(
         plainPassword,
-        +process.env.BCRYPT_SALT || 10
+        +env.BCRYPT_SALT || 10
       );
       return hashedPassword;
     } catch (error) {

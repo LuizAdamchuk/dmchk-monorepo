@@ -6,6 +6,8 @@ import { URLSearchParams } from 'url';
 import { firstValueFrom } from 'rxjs';
 import { SignInDto } from './dto/signin-auth.dto';
 
+import { env } from '../../env';
+
 @Injectable()
 export class AuthService {
   private _baseUrl: string;

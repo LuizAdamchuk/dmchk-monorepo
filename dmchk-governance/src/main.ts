@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { GlobalExceptionFilter } from './global-exception.filter';
+
+import { env } from './env';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -15,6 +17,7 @@ async function bootstrap() {
       transform: true,
     })
   );
-  await app.listen(process.env.PORT);
+  console.log('🚀 Starting aplication on port...', env.PORT);
+  await app.listen(env.PORT);
 }
 bootstrap();
