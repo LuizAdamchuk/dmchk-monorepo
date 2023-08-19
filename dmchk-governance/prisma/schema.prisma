@@ -18,6 +18,7 @@ model Assignor {
   password   String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
+  roles      Role[] // Relacionamento com um array de roles
 }
 
 model User {
@@ -28,4 +29,28 @@ model User {
   password   String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
+  roles      Role[] // Relacionamento com um array de roles
+}
+
+model Role {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  description String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
+  permissions Permission[] // Relacionamento com um array de permissions
+  Assignor    Assignor?    @relation(fields: [assignorId], references: [id])
+  assignorId  String?
+  User        User?        @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model Permission {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  Role        Role?    @relation(fields: [roleId], references: [id])
+  roleId      String?
 }

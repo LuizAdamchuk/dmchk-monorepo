@@ -5,6 +5,7 @@ import {
   Logger,
   NotFoundException,
   UnauthorizedException,
+  BadRequestException,
 } from '@nestjs/common';
 
 @Catch()
@@ -78,6 +79,12 @@ export class GlobalExceptionFilter implements ExceptionFilter {
           });
           break;
 
+        case exception instanceof BadRequestException:
+          response.status(400).json({
+            statusCode: 400,
+            message: exception.message,
+          });
+          break;
         default:
           response.status(500).json({
             message: 'Internal server error',
