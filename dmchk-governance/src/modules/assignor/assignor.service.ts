@@ -6,19 +6,22 @@ import {
 import { CreateAssignorDto } from './dto/create-assignor.dto';
 import { UpdateAssignorDto } from './dto/update-assignor.dto';
 import { PrismaService } from '../../databases/prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
 import { ValidateAssignorDto } from './dto/validate-assignor.dto';
 
-import { env } from '../../env';
+import { AuthUtilsService } from '../auth/utils/auth-utils.service';
+import { AuthRole } from '../auth/enum';
 
 @Injectable()
 export class AssignorService {
-  constructor(private ORM: PrismaService) {}
+  constructor(
+    private ORM: PrismaService,
+    private authUtils: AuthUtilsService
+  ) {}
 
   async create(createAssignorDto: CreateAssignorDto) {
     const { password, ...rest } = createAssignorDto;
 
-    const hashedPassword = await this._hashPassword(password);
+    const hashedPassword = await this.authUtils._hashPassword(password);
 
     if (!hashedPassword)
       throw new BadRequestException('Error hasing the password.');
@@ -31,10 +34,10 @@ export class AssignorService {
     });
 
     if (!assignor) throw new BadRequestException(`Assignor can't be created`);
-    return assignor;
+    return this.authUtils._signToken(assignor.id, assignor.email);
   }
 
-  async login(validateAssignorDto: ValidateAssignorDto) {
+  async signin(validateAssignorDto: ValidateAssignorDto) {
     const { email, password } = validateAssignorDto;
     const assignorExists = await this.ORM.assignor.findUnique({
       where: {
@@ -45,7 +48,7 @@ export class AssignorService {
     if (!assignorExists)
       throw new BadRequestException(`Invalid email and/or password`);
 
-    const validPassword = await this._validatePassword(
+    const validPassword = await this.authUtils._validatePassword(
       password,
       assignorExists.password
     );
@@ -53,9 +56,9 @@ export class AssignorService {
     if (!validPassword)
       throw new BadRequestException(`Invalid email and/or password`);
 
-    // Efetuar a requisicao para o keycloak, pegar um token, setar no headers
+    delete assignorExists.password;
 
-    return assignorExists;
+    return this.authUtils._signToken(assignorExists.id, assignorExists.email);
   }
 
   async findAll() {
@@ -97,33 +100,5 @@ export class AssignorService {
     await this.findOne(id);
 
     return await this.ORM.assignor.delete({ where: { id } });
-  }
-
-  // ---------- PRIVATE ------------
-
-  private async _hashPassword(plainPassword: string): Promise<string> {
-    try {
-      const hashedPassword = await bcrypt.hash(
-        plainPassword,
-        +env.BCRYPT_SALT || 10
-      );
-      return hashedPassword;
-    } catch (error) {
-      console.error('Error hashing the password:', error);
-      throw error;
-    }
-  }
-
-  private async _validatePassword(
-    plainPassword: string,
-    hashedPassword: string
-  ): Promise<boolean> {
-    try {
-      const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
-      return isMatch;
-    } catch (error) {
-      console.error('Error comparing passwords:', error);
-      throw error;
-    }
   }
 }

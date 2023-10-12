@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const nodeEnv = z.enum(['development', 'production']);
+const nodeEnv = z.enum(['development', 'production', 'test']);
 
 // --> If some varialble is necessary only in one enviroment
 // --> ex.: DATABASE_URL: z.string().refine(requiredOn('production'))
@@ -18,7 +18,8 @@ const envSchema = z.object({
   NODE_ENV: nodeEnv.default('development'),
   PORT: z.string().min(1),
   DATABASE_URL: z.string().min(1),
-  BCRYPT_SALT: z.string().min(1),
+  SALT: z.string().min(1),
+  JWT_SECRET: z.string().min(1),
 });
 
 export const env = envSchema.parse(process.env);

@@ -85,6 +85,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
             message: exception.message,
           });
           break;
+
         default:
           response.status(500).json({
             message: 'Internal server error',

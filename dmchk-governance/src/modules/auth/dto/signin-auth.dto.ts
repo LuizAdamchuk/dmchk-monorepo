@@ -1,9 +1,15 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { AuthRole } from '../enum';
 
 export class SignInDto {
   @IsString()
   @IsNotEmpty()
-  username: string;
+  email: string;
+
+  @IsString()
+  @IsEnum(AuthRole)
+  @IsOptional()
+  role?: AuthRole;
 
   @IsString()
   @IsNotEmpty()

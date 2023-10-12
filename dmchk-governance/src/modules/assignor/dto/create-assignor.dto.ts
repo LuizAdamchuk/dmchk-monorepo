@@ -17,7 +17,7 @@ export class CreateAssignorDto {
 
   @IsNotEmpty()
   @IsString()
-  @Length(8, 100)
+  @Length(8, 100, { message: 'Password must be between 8 and 100 characters' })
   password: string;
 
   createdAt?: Date | string;

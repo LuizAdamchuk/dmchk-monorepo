@@ -6,43 +6,51 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignInDto } from './dto/signin-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
-import { CreateAuthDto } from './dto/create-auth.dto';
+import { SignInDto, CreateAuthDto, UpdateAuthDto } from './dto';
+import { GetUser } from './decorator';
+import { JwtGuard } from './guard';
+import { User, Assignor } from '@prisma/client';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createAuthDto: CreateAuthDto) {
     return this.authService.create(createAuthDto);
   }
 
+  @HttpCode(HttpStatus.OK)
   @Post('signin')
   signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto);
   }
 
-  @Get('signout')
-  signOut() {
-    return this.authService.findAll();
-  }
+  // @Get('signout')
+  // signOut() {
+  //   return this.authService.findAll();
+  // }
 
+  @UseGuards(JwtGuard)
   @Get('userinfo')
-  userInfo() {
-    return this.authService.userInfo();
+  userInfo(@GetUser() user: User | Assignor) {
+    return user;
   }
 
+  @UseGuards(JwtGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
+    return this.authService.update(id, updateAuthDto);
   }
 
+  @UseGuards(JwtGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
+    return this.authService.remove(id);
   }
 }
