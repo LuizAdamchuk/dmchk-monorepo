@@ -13,10 +13,9 @@ import {
 import { AuthService } from './auth.service';
 import { SignInDto, CreateAuthDto, UpdateAuthDto } from './dto';
 import { GetUser } from './decorator';
-import { JwtGuard } from './guard';
+import { JwtGuard, Roles, RolesGuard } from './guard';
 import { User } from '@prisma/client';
 import { AuthRole } from './enum';
-import { Roles, RolesGuard } from './guard/roles.guard';
 
 @Controller('auth')
 export class AuthController {
