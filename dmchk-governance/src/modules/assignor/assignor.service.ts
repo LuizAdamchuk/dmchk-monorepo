@@ -34,7 +34,11 @@ export class AssignorService {
     });
 
     if (!assignor) throw new BadRequestException(`Assignor can't be created`);
-    return this.authUtils._signToken(assignor.id, assignor.email);
+    return this.authUtils._signToken(
+      assignor.id,
+      assignor.email,
+      AuthRole.ASSIGNOR
+    );
   }
 
   async signin(validateAssignorDto: ValidateAssignorDto) {
@@ -58,7 +62,11 @@ export class AssignorService {
 
     delete assignorExists.password;
 
-    return this.authUtils._signToken(assignorExists.id, assignorExists.email);
+    return this.authUtils._signToken(
+      assignorExists.id,
+      assignorExists.email,
+      AuthRole.ASSIGNOR
+    );
   }
 
   async findAll() {

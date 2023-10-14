@@ -15,6 +15,8 @@ import { CreateAssignorDto } from './dto/create-assignor.dto';
 import { UpdateAssignorDto } from './dto/update-assignor.dto';
 import { ValidateAssignorDto } from './dto/validate-assignor.dto';
 import { JwtGuard } from '../auth/guard';
+import { Roles, RolesGuard } from '../auth/guard/roles.guard';
+import { AuthRole } from '../auth/enum';
 
 @Controller('assignor')
 export class AssignorController {
@@ -31,18 +33,21 @@ export class AssignorController {
     return this.assignorService.signin(validateAssignor);
   }
 
-  @UseGuards(JwtGuard)
+  @Roles(AuthRole.ASSIGNOR)
+  @UseGuards(JwtGuard, RolesGuard)
   @Get()
   findAll() {
     return this.assignorService.findAll();
   }
 
-  @UseGuards(JwtGuard)
+  @Roles(AuthRole.ASSIGNOR)
+  @UseGuards(JwtGuard, RolesGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.assignorService.findOne(id);
   }
-  @UseGuards(JwtGuard)
+  @Roles(AuthRole.ASSIGNOR)
+  @UseGuards(JwtGuard, RolesGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -51,7 +56,8 @@ export class AssignorController {
     return this.assignorService.update(id, updateAssignorDto);
   }
 
-  @UseGuards(JwtGuard)
+  @Roles(AuthRole.ASSIGNOR)
+  @UseGuards(JwtGuard, RolesGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.assignorService.remove(id);

@@ -33,11 +33,13 @@ export class AuthUtilsService {
 
   async _signToken(
     userId: string,
-    email: string
+    email: string,
+    role: string
   ): Promise<{ access_token: string }> {
     const payload = {
       sub: userId,
       email,
+      role,
     };
     const secret = env.JWT_SECRET;
 

@@ -18,25 +18,14 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
     this.logger.error(exception);
 
-    if (exception?.response?.status) {
-      this.logger.error({
-        code: exception?.code,
-        config: {
-          method: exception?.config?.method,
-          url: exception?.config?.url,
-          data: exception?.config?.data,
-        },
-        response: {
-          status: exception?.response?.status,
-          statusText: exception?.response?.statusText,
-          data: {
-            error: exception?.response?.data?.error,
-            error_description: exception?.response?.data?.error_description,
-          },
-        },
-      });
-
-      switch (exception?.response?.status) {
+    if (exception?.response?.statusCode) {
+      switch (exception?.response?.statusCode) {
+        case 400:
+          response.status(400).json({
+            statusCode: 400,
+            message: exception?.response?.message,
+          });
+          break;
         case 401:
           response.status(401).json({
             statusCode: 401,
@@ -53,7 +42,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         case 404:
           response.status(404).json({
             statusCode: 404,
-            message: exception?.message,
+            message: exception?.response?.message,
           });
           break;
 

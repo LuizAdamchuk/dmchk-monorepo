@@ -14,7 +14,9 @@ import { AuthService } from './auth.service';
 import { SignInDto, CreateAuthDto, UpdateAuthDto } from './dto';
 import { GetUser } from './decorator';
 import { JwtGuard } from './guard';
-import { User, Assignor } from '@prisma/client';
+import { User } from '@prisma/client';
+import { AuthRole } from './enum';
+import { Roles, RolesGuard } from './guard/roles.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -36,19 +38,22 @@ export class AuthController {
   //   return this.authService.findAll();
   // }
 
-  @UseGuards(JwtGuard)
+  @Roles(AuthRole.USER, AuthRole.ASSIGNOR)
+  @UseGuards(JwtGuard, RolesGuard)
   @Get('userinfo')
-  userInfo(@GetUser() user: User | Assignor) {
+  userInfo(@GetUser() user: User) {
     return user;
   }
 
-  @UseGuards(JwtGuard)
+  @Roles(AuthRole.USER, AuthRole.ASSIGNOR)
+  @UseGuards(JwtGuard, RolesGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
     return this.authService.update(id, updateAuthDto);
   }
 
-  @UseGuards(JwtGuard)
+  @Roles(AuthRole.USER, AuthRole.ASSIGNOR)
+  @UseGuards(JwtGuard, RolesGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.authService.remove(id);

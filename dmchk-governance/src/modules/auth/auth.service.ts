@@ -3,6 +3,7 @@ import { PrismaService } from '../../databases/prisma/prisma.service';
 import { CreateAuthDto, SignInDto, UpdateAuthDto } from './dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/binary';
 import { AuthUtilsService } from './utils/auth-utils.service';
+import { AuthRole } from './enum';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +25,7 @@ export class AuthService {
         },
       });
 
-      return this.authUtils._signToken(user.id, user.email);
+      return this.authUtils._signToken(user.id, user.email, AuthRole.USER);
     } catch (error) {
       //TODO: CREATE A GLOBAL FILTER FOR PRISMA ERRORS
       if (error instanceof PrismaClientKnownRequestError) {
@@ -51,7 +52,7 @@ export class AuthService {
 
     if (!pwMatches) throw new ForbiddenException('Credentials incorrect');
 
-    return this.authUtils._signToken(user.id, user.email);
+    return this.authUtils._signToken(user.id, user.email, AuthRole.USER);
   }
 
   async update(id: string, dto: UpdateAuthDto) {
