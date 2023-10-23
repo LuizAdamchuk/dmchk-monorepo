@@ -14,7 +14,6 @@ import { AuthService } from './auth.service';
 import { SignInDto, CreateAuthDto, UpdateAuthDto } from './dto';
 import { GetUser } from './decorator';
 import { JwtGuard, Roles, RolesGuard } from './guard';
-import { User } from '@prisma/client';
 import { AuthRole } from './enum';
 
 @Controller('auth')
@@ -40,7 +39,7 @@ export class AuthController {
   @Roles(AuthRole.USER, AuthRole.ASSIGNOR)
   @UseGuards(JwtGuard, RolesGuard)
   @Get('userinfo')
-  userInfo(@GetUser() user: User) {
+  userInfo(@GetUser() user: any) {
     return user;
   }
 

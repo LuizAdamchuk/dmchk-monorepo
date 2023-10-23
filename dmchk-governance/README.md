@@ -17,3 +17,12 @@ DEV:
 \*\*Necessario subir um mysql 3306
 npm run start:dev
 npx prisma studio
+
+O11y
+https://github.com/willsoto/nestjs-prometheus
+
+TRAVADO NA HORA DO BUILD
+Foi adicionando o mysql persisente
+porem na hora de fazer o deploy do servico esta com erro no prisma/client
+
+docker build --no-cache -t dmchk/dmchk_microsservices .

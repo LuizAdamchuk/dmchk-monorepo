@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dmchk-governance
+  name: dmchk-governance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dmchk-governance
+  template:
+    metadata:
+      labels:
+        app: dmchk-governance
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: /metrics
+        prometheus.io/port: '3045'
+    spec:
+      containers:
+        - image: dmchk/dmchk_microsservices
+          name: dmchk-microsservices-xvmmh
+          ports:
+            - containerPort: 3045
+          env:
+            - name: SALT
+              value: '10'
+            - name: JWT_SECRET
+              value: super-secret
+            - name: DATABASE_URL
+              value: 'mysql://root:mysecret@mysql:3306/governance'
+            - name: PORT
+              value: '3045'

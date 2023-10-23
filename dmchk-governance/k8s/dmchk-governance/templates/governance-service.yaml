@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dmchk-governance-service
+spec:
+  selector:
+    app: dmchk-governance
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 3045
+  type: LoadBalancer
