@@ -91,6 +91,8 @@ export class AssignorService {
     if (!assignorExists)
       throw new NotFoundException(`Assignor with ID ${id} not found`);
 
+    delete assignorExists.password;
+
     return assignorExists;
   }
 

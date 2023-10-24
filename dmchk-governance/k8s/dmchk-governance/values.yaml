@@ -11,3 +11,12 @@ prometheus:
 grafana:
   service:
     type: NodePort
+  persistence:
+    enabled: true
+    storageClassName: grafana-pvc # Set to your storage class
+    accessModes:
+      - ReadWriteOnce
+    size: 1Gi
+    existingClaim: grafana-pvc
+  adminPassword: o74OngsEqQRDm7ukZglYNjT3JmA9yLy8lkLABGZC # kubectl get secret dmchk-governance-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
