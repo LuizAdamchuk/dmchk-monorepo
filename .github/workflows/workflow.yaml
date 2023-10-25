@@ -11,20 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v2
-
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: 16
-
-      # - name: Build and test
-      #   run: |
-      #     cd dmchk-governance
-      #     npm install
-      #     npm run build
-
       - name: Login to Docker Hub
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
@@ -34,3 +20,4 @@ jobs:
           cd dmchk-governance 
           docker build -t dmchk/dmchk_microsservices:latest .
           docker push dmchk/dmchk_microsservices:latest
+        working-directory: dmchk-governance
