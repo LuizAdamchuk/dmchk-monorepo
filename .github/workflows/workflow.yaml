@@ -20,7 +20,6 @@ jobs:
           echo $(ls)
 
       - name: Build and push Docker image
-        working-directory: dmchk-governance
         run: |
           docker build -t dmchk/dmchk_microsservices:latest cd ../../dmchk-governance .
           docker push dmchk/dmchk_microsservices:latest
