@@ -31,6 +31,6 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          cd ../../dmchk-governance 
+          cd dmchk-governance 
           docker build -t dmchk/dmchk_microsservices:latest .
           docker push dmchk/dmchk_microsservices:latest
