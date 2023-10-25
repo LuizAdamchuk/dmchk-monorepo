@@ -17,7 +17,7 @@ jobs:
 
       - name: See the folders and files
         run: |
-          ls
+          echo ls
 
       # - name: Build and push Docker image
       #   working-directory: dmchk-governance
