@@ -17,8 +17,7 @@ jobs:
 
       - name: See the folders and files
         run: |
-          git ls-files
-          git ls-tree --full-tree -r HEAD
+          ls
 
       # - name: Build and push Docker image
       #   working-directory: dmchk-governance
