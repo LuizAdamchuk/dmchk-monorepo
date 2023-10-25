@@ -14,7 +14,6 @@ jobs:
       - name: Login to Docker Hub
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-          ls /home/runner/work/***-monorepo/***-monorepo/***-governance
 
       - name: Build and push Docker image
         working-directory: dmchk-governance
