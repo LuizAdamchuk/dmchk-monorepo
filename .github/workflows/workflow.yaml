@@ -16,7 +16,6 @@ jobs:
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: See the folders and files
-        working-directory: dmchk-governance
         run: |
           git ls-files
           git ls-tree --full-tree -r HEAD
