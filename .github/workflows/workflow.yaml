@@ -23,3 +23,10 @@ jobs:
         run: |
           docker build -t dmchk/dmchk_microsservices:latest .
           docker push dmchk/dmchk_microsservices:latest
+      # - name: Build and Push Docker Image
+      #   uses: mr-smithers-excellent/docker-build-push@v4
+      #   with:
+      #     image: dmchk/dmchk_microsservices:latest
+      #     registry: docker.io
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
