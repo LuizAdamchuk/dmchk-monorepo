@@ -16,6 +16,6 @@ jobs:
         with:
           image: dmchk/dmchk_microsservices:latest
           registry: docker.io
-          dockerfile: ./dmchk-governance/Dockerfile
+          dockerfile: ${pwd}/dmchk-governance/Dockerfile
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
