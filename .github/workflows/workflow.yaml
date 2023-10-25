@@ -15,8 +15,14 @@ jobs:
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      - name: Build and push Docker image
+      - name: See the folders and files
         working-directory: dmchk-governance
         run: |
-          docker build -t dmchk/dmchk_microsservices:latest .
-          docker push dmchk/dmchk_microsservices:latest
+          git ls-files
+          git ls-tree --full-tree -r HEAD
+
+      # - name: Build and push Docker image
+      #   working-directory: dmchk-governance
+      #   run: |
+      #     docker build -t dmchk/dmchk_microsservices:latest .
+      #     docker push dmchk/dmchk_microsservices:latest
