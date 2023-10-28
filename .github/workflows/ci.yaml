@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  governance:
+    name: Governance service
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18.x"
+      - name: Install packages
+        working-directory: dmchk-governance
+        run: npm install --prod-only # npm install --prod-only | npm ci
+      - name: Formatting, linting, tsc, and tests
+        working-directory: dmchk-governance
+        run: |
+          npm run prettier
+          npm run lint
+      # - name: Build and Push Docker Image
+      #   uses: mr-smithers-excellent/docker-build-push@v4
+      #   with:
+      #     image: dmchk/dmchk_microsservices:latest
+      #     registry: docker.io
+      #     dockerfile: dmchk-monorepo/dmchk-governance/Dockerfile
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+  # web-client:
+  #   name: Web client service
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
+  #     - name: Setup node
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: "14.x"
+  #     - name: Install packages
+  #       working-directory: web-client
+  #       run: npm ci
+  #     - name: Formatting, linting, tsc, and tests
+  #       working-directory: web-client
+  #       run: |
+  #         npm run prettier:check
+  #         npm run lint
+  #         npm run tsc:check
+  #         npm run test
