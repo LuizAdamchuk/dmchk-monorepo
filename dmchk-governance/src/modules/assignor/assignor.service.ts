@@ -92,7 +92,6 @@ export class AssignorService {
       throw new NotFoundException(`Assignor with ID ${id} not found`);
 
     delete assignorExists.password;
-    delete assignorExists.externalId;
 
     return assignorExists;
   }
