@@ -25,31 +25,11 @@ jobs:
         run: |
           npm run prettier
           npm run lint
-      - name: Build and Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v4
-        with:
-          image: dmchk/dmchk_microsservices:latest
-          registry: docker.io
-          working-directory: dmchk-governance
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-  # web-client:
-  #   name: Web client service
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
-  #     - name: Setup node
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: "14.x"
-  #     - name: Install packages
-  #       working-directory: web-client
-  #       run: npm ci
-  #     - name: Formatting, linting, tsc, and tests
-  #       working-directory: web-client
-  #       run: |
-  #         npm run prettier:check
-  #         npm run lint
-  #         npm run tsc:check
-  #         npm run test
+      - name: Login to Docker Hub
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Build and push Docker image
+        working-directory: dmchk-governance
+        run: |
+          docker build -t dmchk/dmchk_microsservices:latest .
+          docker push dmchk/dmchk_microsservices:latest
