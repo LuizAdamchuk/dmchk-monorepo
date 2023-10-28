@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   db:
     image: mysql:latest
@@ -9,42 +9,41 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - '3306:3306'
+      - "3306:3306"
     volumes:
       - .docker/data:/var/lib/mysql
       - ./mysql_databases:/docker-entrypoint-initdb.d
 
-  redis:
-    image: redis:latest
-    container_name: redis
-    ports:
-      - 6379:6379
-    volumes:
-      - .docker/redis_data:/data
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:latest
+  #   restart: always
+  #   depends_on:
+  #     - db
+  #   ports:
+  #     - "8081:80"
+  #   environment:
+  #     PMA_HOST: db
+  #     PMA_PORT: 3306
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    restart: always
-    depends_on:
-      - db
-    ports:
-      - '8081:80'
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-
-  keycloak:
-    container_name: keycloak
-    image: quay.io/keycloak/keycloak:19.0.1
-    env_file:
-      - .env
-    ports:
-      - 8080:8080
-    command: start-dev
-    depends_on:
-      - db
-      - redis
-    volumes:
-      - .docker/keycloak_data:/opt/jboss/keycloak/standalone/data
-      - ./keycloak/realm-export.json:/tmp/realm-export.json
+  # redis:
+  #   image: redis:latest
+  #   container_name: redis
+  #   ports:
+  #     - 6379:6379
+  #   volumes:
+  #     - .docker/redis_data:/data
+  # keycloak:
+  # container_name: keycloak
+  # image: quay.io/keycloak/keycloak:19.0.1
+  # env_file:
+  #   - .env
+  # ports:
+  #   - 8080:8080
+  # command: start-dev
+  # depends_on:
+  #   - db
+  #   - redis
+  # volumes:
+  #   - .docker/keycloak_data:/opt/jboss/keycloak/standalone/data
+  #   - ./keycloak/realm-export.json:/tmp/realm-export.json
