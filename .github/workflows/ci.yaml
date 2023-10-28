@@ -25,14 +25,14 @@ jobs:
         run: |
           npm run prettier
           npm run lint
-      # - name: Build and Push Docker Image
-      #   uses: mr-smithers-excellent/docker-build-push@v4
-      #   with:
-      #     image: dmchk/dmchk_microsservices:latest
-      #     registry: docker.io
-      #     dockerfile: dmchk-monorepo/dmchk-governance/Dockerfile
-      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and Push Docker Image
+        uses: mr-smithers-excellent/docker-build-push@v4
+        with:
+          image: dmchk/dmchk_microsservices:latest
+          registry: docker.io
+          working-directory: dmchk-governance
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
   # web-client:
   #   name: Web client service
   #   runs-on: ubuntu-latest
