@@ -39,4 +39,7 @@ COPY --from=development /usr/src/app/dist ./dist
 # Generate the Prisma Client schema
 RUN npx prisma generate
 
+# Set permissions for log files
+RUN chmod a+r /var/log/containers/*.log
+
 CMD ["node", "dist/main"]
