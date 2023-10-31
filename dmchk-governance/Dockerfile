@@ -40,6 +40,8 @@ COPY --from=development /usr/src/app/dist ./dist
 RUN npx prisma generate
 
 # Set permissions for log files
-RUN chmod a+r /var/log/containers/*.log
+# Check if log files exist before running chmod
+RUN if [ -f /var/log/containers/*.log ]; then chmod a+r /var/log/containers/*.log; fi
+
 
 CMD ["node", "dist/main"]
