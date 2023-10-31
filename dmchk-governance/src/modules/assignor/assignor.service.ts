@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   Injectable,
-  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateAssignorDto } from './dto/create-assignor.dto';
@@ -16,8 +15,7 @@ import { AuthRole } from '../auth/enum';
 export class AssignorService {
   constructor(
     private ORM: PrismaService,
-    private authUtils: AuthUtilsService,
-    private logger: Logger
+    private authUtils: AuthUtilsService
   ) {}
 
   async create(createAssignorDto: CreateAssignorDto) {
@@ -44,8 +42,6 @@ export class AssignorService {
   }
 
   async signin(validateAssignorDto: ValidateAssignorDto) {
-    this.logger.debug(JSON.stringify(validateAssignorDto));
-
     const { email, password } = validateAssignorDto;
     const assignorExists = await this.ORM.assignor.findUnique({
       where: {

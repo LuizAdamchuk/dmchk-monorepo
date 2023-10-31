@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Global, Injectable } from '@nestjs/common';
 import * as winston from 'winston';
-
+@Global()
 @Injectable()
 export class LoggerService {
   private readonly logger = winston.createLogger({
@@ -18,18 +18,22 @@ export class LoggerService {
   });
 
   error(message: string) {
-    this.logger.error({ message }); // Pass the message as an object
+    this.logger.error({ message, level: 'error' }); // Pass the message as an object
   }
 
   warn(message: string) {
-    this.logger.warn({ message }); // Pass the message as an object
+    this.logger.warn({ message, level: 'warn' }); // Pass the message as an object
   }
 
   info(message: string) {
-    this.logger.info({ message }); // Pass the message as an object
+    this.logger.info({ message, level: 'info' }); // Pass the message as an object
   }
 
   log(message: string) {
-    this.logger.log({ message, level: 'data' }); // Pass the message as an object
+    this.logger.log({ message, level: 'debug' }); // Pass the message as an object
+  }
+
+  http(message: string) {
+    this.logger.http({ message, level: 'http' }); // Pass the message as an object
   }
 }

@@ -15,26 +15,13 @@ import { SignInDto, CreateAuthDto, UpdateAuthDto } from './dto';
 import { GetUser } from './decorator';
 import { JwtGuard, Roles, RolesGuard } from './guard';
 import { AuthRole } from './enum';
-import { LoggerService } from '../shared/Logs/logger.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly loggerService: LoggerService
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('create')
   create(@Body() createAuthDto: CreateAuthDto) {
-    this.loggerService.info(
-      `This is an info message. ${JSON.stringify(createAuthDto)}`
-    );
-    this.loggerService.warn(
-      `This is a warning message. ${JSON.stringify(createAuthDto)}`
-    );
-    this.loggerService.error(
-      `This is an error message. ${JSON.stringify(createAuthDto)}`
-    );
     return this.authService.create(createAuthDto);
   }
 

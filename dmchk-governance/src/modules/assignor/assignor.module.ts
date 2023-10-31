@@ -1,16 +1,10 @@
-import { Logger, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AssignorService } from './assignor.service';
 import { AssignorController } from './assignor.controller';
 
 @Module({
   controllers: [AssignorController],
-  providers: [
-    AssignorService,
-    {
-      provide: Logger,
-      useValue: new Logger('AssignorModule'),
-    },
-  ],
+  providers: [AssignorService],
   exports: [AssignorService],
 })
 export class AssignorModule {}

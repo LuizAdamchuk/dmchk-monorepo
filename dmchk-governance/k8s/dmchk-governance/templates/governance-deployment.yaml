@@ -40,6 +40,8 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /fluent-bit/etc/
+            - name: log-volume # Add this volume mount for log directory
+              mountPath: /var/log/containers
           env:
             - name: FLUENT_BIT_CONFIG
               value: /fluent-bit/etc/fluent-bit-config.conf
@@ -47,3 +49,6 @@ spec:
         - name: config-volume
           configMap:
             name: fluent-bit-config
+        - name: log-volume # Add this volume for log directory
+          hostPath:
+            path: /var/log/containers

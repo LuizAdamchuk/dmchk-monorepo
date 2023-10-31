@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../databases/prisma/prisma.service';
 import { CreateAuthDto, SignInDto, UpdateAuthDto } from './dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/binary';
@@ -9,8 +9,7 @@ import { AuthRole } from './enum';
 export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private authUtils: AuthUtilsService,
-    private logger: Logger
+    private authUtils: AuthUtilsService
   ) {}
 
   async create(dto: CreateAuthDto) {
@@ -39,7 +38,6 @@ export class AuthService {
   }
 
   async signIn(dto: SignInDto) {
-    this.logger.debug(JSON.stringify(dto));
     const user = await this.prisma.user.findUnique({
       where: {
         email: dto.email,
