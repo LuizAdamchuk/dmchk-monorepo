@@ -30,12 +30,13 @@ export class LoggingInterceptor implements NestInterceptor {
         body
       )} ${ip}: ${context.getClass().name} ${context.getHandler().name}`
     );
-
-    this.logger.info(
-      `[${correlationKey}] ${method} ${userAgent} ${url} ${JSON.stringify(
-        body
-      )} ${ip}: ${context.getClass().name} ${context.getHandler().name}`
-    );
+    if (method !== 'Prometheus/2.47.0') {
+      this.logger.info(
+        `[${correlationKey}] ${method} ${userAgent} ${url} ${JSON.stringify(
+          body
+        )} ${ip}: ${context.getClass().name} ${context.getHandler().name}`
+      );
+    }
 
     const now = Date.now();
     return next.handle().pipe(
