@@ -25,12 +25,7 @@ export class LoggingInterceptor implements NestInterceptor {
     const { ip, method, path: url, body } = request;
     const correlationKey = uuidv4();
 
-    this.logger.http(
-      `[${correlationKey}] ${method} ${userAgent} ${url} ${JSON.stringify(
-        body
-      )} ${ip}: ${context.getClass().name} ${context.getHandler().name}`
-    );
-    if (method !== 'Prometheus/2.47.0') {
+    if (String(context.getClass().name) != 'PrometheusController') {
       this.logger.info(
         `[${correlationKey}] ${method} ${userAgent} ${url} ${JSON.stringify(
           body
