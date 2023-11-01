@@ -18,22 +18,22 @@ export class LoggerService {
   });
 
   error(message: string) {
-    this.logger.error({ message, level: 'error' }); // Pass the message as an object
+    this.logger.error({ message, level: 'error' });
   }
 
   warn(message: string) {
-    this.logger.warn({ message, level: 'warn' }); // Pass the message as an object
+    this.logger.warn({ message, level: 'warn' });
   }
 
   info(message: string) {
-    this.logger.info({ message, level: 'info' }); // Pass the message as an object
+    this.logger.info({ message, level: 'info' });
   }
 
   log(message: string) {
-    this.logger.log({ message, level: 'debug' }); // Pass the message as an object
+    this.logger.log({ message, level: 'debug' });
   }
 
   http(message: string) {
-    this.logger.http({ message, level: 'http' }); // Pass the message as an object
+    this.logger.http({ message, level: 'http' });
   }
 }
