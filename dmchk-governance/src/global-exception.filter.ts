@@ -2,22 +2,25 @@ import {
   Catch,
   ExceptionFilter,
   ArgumentsHost,
-  Logger,
   NotFoundException,
   UnauthorizedException,
   BadRequestException,
 } from '@nestjs/common';
+import { LoggerService } from './modules/shared/Logs/logger.service';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
-  private readonly logger = new Logger('GlobalExceptionFilter');
+  constructor(private logger: LoggerService) {}
 
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
 
-    this.logger.error(exception);
-
+    this.logger.error(
+      `${exception} url: ${JSON.stringify(
+        response.req.path
+      )} body:${JSON.stringify(response.req.body)}`
+    );
     if (exception?.response?.statusCode) {
       switch (exception?.response?.statusCode) {
         case 400:

@@ -5,12 +5,16 @@ import { GlobalExceptionFilter } from './global-exception.filter';
 
 import { env } from './env';
 import * as dotenv from 'dotenv';
+import { LoggerService } from './modules/shared/Logs/logger.service';
+import { LoggingInterceptor } from './modules/shared/Logs/logging.interceptor';
 dotenv.config();
 
 async function bootstrap() {
+  const logger = new LoggerService();
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  app.useGlobalFilters(new GlobalExceptionFilter());
+  app.useGlobalFilters(new GlobalExceptionFilter(logger));
+  app.useGlobalInterceptors(new LoggingInterceptor(logger));
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
