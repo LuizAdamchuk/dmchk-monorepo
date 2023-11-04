@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class CreateAssignorDto {
   id?: string;
@@ -17,8 +17,31 @@ export class CreateAssignorDto {
 
   @IsNotEmpty()
   @IsString()
+  password: string;
+
+  @IsNotEmpty()
+  @IsString()
   name: string;
 
   createdAt?: Date | string;
   updatedAt?: Date | string;
+}
+
+export class CreateAssignorAuthDto {
+  @IsNotEmpty()
+  @IsString()
+  externalId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  document: string;
+
+  @IsNotEmpty()
+  @IsString()
+  email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Length(8, 100, { message: 'Password must be between 8 and 100 characters' })
+  password: string;
 }

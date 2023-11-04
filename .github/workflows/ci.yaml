@@ -10,6 +10,7 @@ jobs:
   governance:
     name: Governance service
     runs-on: ubuntu-latest
+    if: contains(join(github.event.commits[0].modified, ','), 'dmchk-governance')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -36,6 +37,7 @@ jobs:
   provisor:
     name: Provisor service
     runs-on: ubuntu-latest
+    if: contains(join(github.event.commits[0].modified, ','), 'dmchk-provisor')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

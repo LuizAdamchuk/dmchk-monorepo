@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AssignorController } from './assignor.controller';
 import { AssignorService } from './assignor.service';
-import { PrismaService } from '../../databases/PrismaService';
+import { PrismaService } from '../../databases/prisma/prisma.service';
 
 describe('AssignorController', () => {
   let controller: AssignorController;
