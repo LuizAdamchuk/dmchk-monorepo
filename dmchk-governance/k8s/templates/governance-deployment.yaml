@@ -19,9 +19,8 @@ spec:
         prometheus.io/port: '3045'
     spec:
       containers:
-        - image: dmchk/dmchk_microsservices:governance-stable-838922668f5502baef31d43bfb6511e71733a09b
+        - image: dmchk/dmchk_microsservices:governance-stable-0a39762cb1157814e31cb029a8abc9728f7f4099
           name: dmchk-microsservices-gxvmm
-          command: ['npm', 'run', 'migration:run']
           ports:
             - containerPort: 3045
           env:
