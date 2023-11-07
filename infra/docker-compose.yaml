@@ -9,7 +9,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - "3306:3306"
+      - "3309:3306"
     volumes:
       - .docker/data:/var/lib/mysql
       - ./mysql_databases:/docker-entrypoint-initdb.d

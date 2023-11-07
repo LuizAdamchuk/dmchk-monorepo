@@ -1,4 +1,4 @@
-name: CI
+name: CI for Main
 
 on:
   push:
@@ -31,8 +31,8 @@ jobs:
       - name: Build and push Docker image
         working-directory: dmchk-governance
         run: |
-          docker build -t dmchk/dmchk_microsservices:governance .
-          docker push dmchk/dmchk_microsservices:governance
+          docker build -t dmchk/dmchk_microsservices:governance-stable-${{ github.sha }} .
+          docker push dmchk/dmchk_microsservices:governance-stable-${{ github.sha }}
   provisor:
     name: Provisor service
     runs-on: ubuntu-latest
@@ -57,5 +57,5 @@ jobs:
       - name: Build and push Docker image
         working-directory: dmchk-provisor
         run: |
-          docker build -t dmchk/dmchk_microsservices:provisor .
-          docker push dmchk/dmchk_microsservices:provisor
+          docker build -t dmchk/dmchk_microsservices:provisor-stable-${{ github.sha }} .
+          docker push dmchk/dmchk_microsservices:provisor-stable-${{ github.sha }}
