@@ -17,7 +17,7 @@ export class LoggerService {
       new DailyRotateFile({
         level: 'verbose',
         filename: 'governance_%DATE%.log',
-        dirname: './logs', ///var/log
+        dirname: '/var/log/containers', ///var/log/containers/app.log
         options: { flags: 'a' },
         datePattern: 'YYYY_MM_DD',
         zippedArchive: true,
