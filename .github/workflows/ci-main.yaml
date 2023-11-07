@@ -2,7 +2,7 @@ name: CI for Main
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main"] # FIXME: facilitate development.
   pull_request:
     branches: ["main"]
 

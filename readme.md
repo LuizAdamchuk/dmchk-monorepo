@@ -9,13 +9,6 @@
 
 I am using Helm to install Grafana and Prometheus for observability.
 
-### Useful Commands
-
-- Create a Helm chart: `helm create dmchk-governance`
-- Install the Helm chart: `helm install dmchk-governance .`
-- Upgrade Grafana with custom values: `helm upgrade grafana stable/grafana -f values.yaml`
-- Update Helm dependencies: `helm dependency update`
-
 ### Setting up a Kubernetes (K8s) Environment
 
 When setting up a Kubernetes environment, follow this order:
@@ -32,6 +25,13 @@ When setting up a Kubernetes environment, follow this order:
    - `kubectl apply -f governance-deployment.yaml`
    - `kubectl apply -f governance-service.yaml`
 
+### Useful Commands
+
+- Create a Helm chart: `helm create dmchk-governance`
+- Install the Helm chart: `helm install dmchk-governance .`
+- Upgrade Grafana with custom values: `helm upgrade grafana stable/grafana -f values.yaml`
+- Update Helm dependencies: `helm dependency update`
+
 ## Tests
 
 These end-to-end (E2E) tests set up a new MySQL instance on port 3307 for test execution.
@@ -47,6 +47,11 @@ To deploy the project, simply push a commit to GitHub. GitHub Actions will build
 
 - Delete the existing deployment: `kubectl delete -f your-deployment-file.yaml`
 - Apply the updated deployment: `kubectl apply -f your-deployment-file.yaml`
+
+### Rollback Strategy
+
+- Verify revisions: `kubectl rollout history deployment/dmchk-governance`
+- Undo to another version: `kubectl rollout undo deployment/dmchk-governance --to-revision 1`
 
 ## General Commands
 

@@ -2,7 +2,7 @@ name: CI for Development
 
 on:
   push:
-    branches: ["development"]
+    branches: ["development"] # FIXME: facilitate development.
   pull_request:
     branches: ["development"]
 

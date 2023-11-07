@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateAssignorDto } from './dto/create-assignor.dto';
 import { UpdateAssignorDto } from './dto/update-assignor.dto';
@@ -19,63 +18,50 @@ export class AssignorService {
   ) {}
 
   async create(createAssignorDto: CreateAssignorDto) {
-    const assignor = await this.ORM.assignor.create({
-      data: createAssignorDto,
-    });
+    const assignor = await this.authServise.signUp(createAssignorDto);
 
     if (!assignor) throw new BadRequestException(`Assignor can't be created`);
-
-    const mappedAssignor = this.assignorMapper.mapperToCreateAssignorAuthDto(
-      assignor,
-      createAssignorDto
-    );
-
-    const authResponse = await this.authServise.signUp(mappedAssignor);
-
-    if (!authResponse)
-      throw new UnprocessableEntityException(`Assignor can't be created`);
 
     return assignor;
   }
 
   async findAll() {
-    const assignors = await this.ORM.assignor.findMany();
+    // TODO: Add req for governance
 
-    if (!assignors) throw new NotFoundException(`Assignors not found`);
-
-    return assignors;
+    return {};
   }
 
   async findOne(id: string) {
-    const assignorExists = await this.ORM.assignor.findUnique({
-      where: {
-        id,
-      },
-    });
+    // TODO: Add req for governance
 
-    if (!assignorExists)
-      throw new NotFoundException(`Assignor with ID ${id} not found`);
+    // if (!assignorExists)
+    //   throw new NotFoundException(`Assignor with ID ${id} not found`);
 
-    return assignorExists;
+    return {};
   }
 
   async update(id: string, updateAssignorDto: UpdateAssignorDto) {
-    await this.findOne(id);
+    // TODO: Add req for governance
 
-    const updateAssignor = await this.ORM.assignor.update({
-      data: updateAssignorDto,
-      where: { id },
-    });
+    // await this.findOne(id);
 
-    if (!updateAssignor)
-      throw new NotFoundException(`Assignor with ID ${id} not found`);
+    // const updateAssignor = await this.ORM.assignor.update({
+    //   data: updateAssignorDto,
+    //   where: { id },
+    // });
 
-    return updateAssignor;
+    // if (!updateAssignor)
+    //   throw new NotFoundException(`Assignor with ID ${id} not found`);
+
+    return {};
   }
 
   async remove(id: string) {
-    await this.findOne(id);
+    // TODO: Add req for governance
 
-    return await this.ORM.assignor.delete({ where: { id } });
+    // await this.findOne(id);
+
+    // return await this.ORM.assignor.delete({ where: { id } });
+    return {};
   }
 }

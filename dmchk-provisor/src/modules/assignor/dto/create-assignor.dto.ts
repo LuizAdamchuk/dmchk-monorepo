@@ -17,6 +17,7 @@ export class CreateAssignorDto {
 
   @IsNotEmpty()
   @IsString()
+  @Length(8, 100, { message: 'Password must be between 8 and 100 characters' })
   password: string;
 
   @IsNotEmpty()
@@ -25,23 +26,4 @@ export class CreateAssignorDto {
 
   createdAt?: Date | string;
   updatedAt?: Date | string;
-}
-
-export class CreateAssignorAuthDto {
-  @IsNotEmpty()
-  @IsString()
-  externalId: string;
-
-  @IsNotEmpty()
-  @IsString()
-  document: string;
-
-  @IsNotEmpty()
-  @IsString()
-  email: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @Length(8, 100, { message: 'Password must be between 8 and 100 characters' })
-  password: string;
 }
