@@ -9,8 +9,6 @@ RUN npm install
 
 COPY prisma ./prisma/
 
-
-
 COPY . .
 
 RUN npm run build
