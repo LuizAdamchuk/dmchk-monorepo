@@ -29,12 +29,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     switch (true) {
       case !!user:
         delete user.password;
-        delete user.externalId;
         break;
 
       case !!assignor:
         delete assignor.password;
-        delete assignor.externalId;
         break;
 
       default:

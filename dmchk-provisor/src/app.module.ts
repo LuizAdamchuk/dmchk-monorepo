@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AssignorModule } from './modules/assignor/assignor.module';
 import { PayableModule } from './modules/payable/payable.module';
-import { JwtStrategyService } from './modules/shared/jwt-strategy/jwt-strategy.service';
+import { JwtStrategy } from './modules/shared/auth/strategy';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './databases/prisma/prisma.module';
 import { AuthModule } from './modules/shared/auth/auth.module';
@@ -15,6 +15,6 @@ import { AuthModule } from './modules/shared/auth/auth.module';
     AuthModule,
   ],
   controllers: [],
-  providers: [JwtStrategyService],
+  providers: [JwtStrategy],
 })
 export class AppModule {}

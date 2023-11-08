@@ -11,7 +11,7 @@ import {
 import { PayableService } from './payable.service';
 import { CreatePayableDto } from './dto/create-payable.dto';
 import { UpdatePayableDto } from './dto/update-payable.dto';
-import { JwtGuard } from '../shared/jwt-strategy/jwt.guard';
+import { JwtGuard } from '../shared/auth/guard';
 
 @UseGuards(JwtGuard)
 @Controller('payable')

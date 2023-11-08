@@ -11,8 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AssignorService } from './assignor.service';
-import { CreateAssignorDto } from './dto/create-assignor.dto';
-import { UpdateAssignorDto } from './dto/update-assignor.dto';
+import { CreateAssignorDto, UpdateAssignorDto } from './dto';
 import { ValidateAssignorDto } from './dto/validate-assignor.dto';
 import { JwtGuard, Roles, RolesGuard } from '../auth/guard';
 import { AuthRole } from '../auth/enum';

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AuthController } from './auth.controller';
-import { CreateAssignorDto } from 'src/modules/assignor/dto/create-assignor.dto';
+import { CreateAssignorDto, SignInAssignorDto } from 'src/modules/assignor/dto';
 
 @Injectable()
 export class AuthService {
@@ -8,6 +8,11 @@ export class AuthService {
 
   async signUp(createAssignorDto: CreateAssignorDto) {
     const authAssignor = await this.authController.signUp(createAssignorDto);
+    return authAssignor;
+  }
+
+  async signIn(signInAssignorDto: SignInAssignorDto) {
+    const authAssignor = await this.authController.signIn(signInAssignorDto);
     return authAssignor;
   }
 }

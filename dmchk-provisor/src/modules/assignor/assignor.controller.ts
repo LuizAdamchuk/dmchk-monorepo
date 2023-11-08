@@ -7,13 +7,14 @@ import {
   Param,
   Delete,
   UseGuards,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { AssignorService } from './assignor.service';
-import { CreateAssignorDto } from './dto/create-assignor.dto';
-import { UpdateAssignorDto } from './dto/update-assignor.dto';
-import { JwtGuard } from '../shared/jwt-strategy/jwt.guard';
+import { CreateAssignorDto, SignInAssignorDto, UpdateAssignorDto } from './dto';
+import { JwtGuard } from '../shared/auth/guard';
 
-@UseGuards(JwtGuard)
+// @UseGuards(JwtGuard)
 @Controller('assignor')
 export class AssignorController {
   constructor(private readonly assignorService: AssignorService) {}
@@ -23,14 +24,15 @@ export class AssignorController {
     return this.assignorService.create(createAssignorDto);
   }
 
+  @HttpCode(HttpStatus.OK)
+  @Post('signin')
+  findOne(@Body() signInssignorDto: SignInAssignorDto) {
+    return this.assignorService.signIn(signInssignorDto);
+  }
+
   @Get()
   findAll() {
     return this.assignorService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.assignorService.findOne(id);
   }
 
   @Patch(':id')

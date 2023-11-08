@@ -19,7 +19,7 @@ spec:
         prometheus.io/port: '3045'
     spec:
       containers:
-        - image: dmchk/dmchk_microsservices:provisor
+        - image: dmchk/dmchk_microsservices:provisor-stable-7c7033e49fbc874fc3f913191d4b49c2b64c497d
           name: dmchk-microsservices-pxvmm
           ports:
             - containerPort: 3045

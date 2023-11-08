@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { CreateAssignorDto } from './dto/create-assignor.dto';
+import { CreateAssignorDto, SignInAssignorDto } from './dto';
 import { UpdateAssignorDto } from './dto/update-assignor.dto';
 import { PrismaService } from '../../databases/prisma/prisma.service';
 import { AuthService } from '../shared/auth/auth.service';
@@ -31,13 +31,12 @@ export class AssignorService {
     return {};
   }
 
-  async findOne(id: string) {
-    // TODO: Add req for governance
+  async signIn(signInAssignorDto: SignInAssignorDto) {
+    const assignor = await this.authServise.signIn(signInAssignorDto);
 
-    // if (!assignorExists)
-    //   throw new NotFoundException(`Assignor with ID ${id} not found`);
+    if (!assignor) throw new NotFoundException(`Assignor not found`);
 
-    return {};
+    return assignor;
   }
 
   async update(id: string, updateAssignorDto: UpdateAssignorDto) {

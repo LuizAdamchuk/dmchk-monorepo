@@ -20,7 +20,7 @@ export class PayableService {
 
     const formattedEmissionDate = new Date(emissionDate);
 
-    await this._assignorSerive.findOne(assignorId);
+    // FIXME: await this._assignorSerive.findOne(assignorId);
 
     const payable = await this.ORM.payable.create({
       data: {
