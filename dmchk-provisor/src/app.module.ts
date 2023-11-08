@@ -5,9 +5,11 @@ import { JwtStrategy } from './modules/shared/auth/strategy';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './databases/prisma/prisma.module';
 import { AuthModule } from './modules/shared/auth/auth.module';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 @Module({
   imports: [
+    PrometheusModule.register(),
     ConfigModule.forRoot(),
     AssignorModule,
     PayableModule,

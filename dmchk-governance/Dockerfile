@@ -28,7 +28,6 @@ RUN npm install --only=production
 
 COPY prisma ./prisma/
 
-
 COPY . .
 
 # Copy your built application
