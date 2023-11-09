@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dmchk-governance
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/LuizAdamchuk/dmchk-monorepo.git
+    targetRevision: HEAD
+    path: dmchk-governance/k8s/templates
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      selfHeal: true
+      prune: true

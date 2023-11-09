@@ -53,6 +53,13 @@ To deploy the project, simply push a commit to GitHub. GitHub Actions will build
 - Verify revisions: `kubectl rollout history deployment/dmchk-governance`
 - Undo to another version: `kubectl rollout undo deployment/dmchk-governance --to-revision 1`
 
+## Auto Deploy locally
+
+We are using Argo CD.
+kubectl edit svc/argocd-server -n argocd change to NodePort or LoadBalancer for avoiding port-forward.
+
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode ; echo
+
 ## General Commands
 
 Here are some general commands you may find useful:
